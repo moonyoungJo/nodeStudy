@@ -1,0 +1,32 @@
+node.js는 구글 크롬의 v8에 기반해 만들어진 javascript 서버사이드 플랫폼 입니다.
+
+특징
+-이벤트 기반 비동기 처리 : API가 실행되었을 때, 데이터를 반환할 때(이벤트가 발생할 때)까지 
+멈추지 않고 다른 API를 실행함으로써 속도가 빠르다.
+-단일 스레드 기반 : 실제 내부적으로는 여러 스레드가 스레드풀로 관리되지만 개발자는 
+하나의 스레드를 운용하듯이 프로그래밍하므로 개발 속도가 빠르다.
+-V8엔진 : 구글이 지원하는 V8의 엔진이 기반이라 속도가 빠르다. 지원이 계속된다
+-프론트엔드와 백엔드의 언어 통합
+-npm을 통한 라이브러리 설치의 용이성
+
+npm(Node Package Manager)
+npm install 모듈명 : 모듈 설치
+옵션
+-g : 전역설치
+--save : pakcage.json에 설치한 모듈과 버전이 기록됨
+
+npm root -g : 전역모듈 위치
+npm uninstall 모듈이름 : ahebf wprj
+npm init : 현재 폴더를 프로젝트로 지정 -> package.json 생성
+npm install : package.json을 읽고 필요한 모듈을 자동으로 설치
+
+package-lock.json?
+의존성 트리에 대한 정확한 정보를 가진 파일. package-lock은 버전의 범위를 저장하고 있어서
+개발 시점과 다른 버전의 모듈을 받아와 의존성 문제가 나타날 수 있다. 
+.gitignore에 포함시키지 말자!
+
+Yarn : npm과 같은 패키지 관리 시스템
+npm install yarn -g
+yarn add 모듈명
+yarn global add 모듈명
+
