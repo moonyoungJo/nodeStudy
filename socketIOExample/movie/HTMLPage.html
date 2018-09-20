@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+    <title>Node.js Programming for Modern Web</title>
+    <style>
+        .line{
+            overflow: hidden;
+        }
+        .seat{
+            margin: 2px;
+            float: left;
+            width: 30px;
+            height: 30px;
+            border-radius: 3px;
+        }
+        .enable{
+            background: gray;
+        }
+        .enable:hover{
+            background:black;
+        }
+        .disable{
+            background: red;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+    <!--서버의 socket.io 모듈이 제공-->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io.connect();
+
+        //예약정보가 변경되었을 때 서버가 보냄
+        socket.on('modifyReserve', (data) => {
+            const $target = $('div[data-x=' + data.x + '][data-y=' + data.y + ']');
+            $target.removeClass('enable');
+            $target.addClass('disable');
+        })
+    </script>
+    <script>
+        $(document).ready(() => {
+
+            //좌석을 클릭할 때 발생하는 이벤트
+            const onClickSeat = (function () {
+                const x = $(this).attr('data-x');
+                const y = $(this).attr('data-y');
+                if(confirm('좌석을 예약하시겠습니까?')){
+                    $(this).off('click');
+
+                    //예약해달라고 서버에 보냄
+                    socket.emit('reserve', {
+                        x: x,
+                        y: y
+                    });
+                }else{
+                    alert('취소되었습니다.');
+                }
+            });
+            
+            //초기에 서버에서 정보를 가져와 좌석을  생성
+            $.getJSON('/seats', {dummy: new Date().getTime() }, (data) => {
+                
+                $.each(data, (indexY, line) => {
+                    const $line = $('<div></div>').addClass('line');
+                    $.each(line, (indexX, seat) => {
+                        const $output = $('<div></div>', {
+                            'class':'seat',
+                            'data-x': indexX,
+                            'data-y': indexY
+                        }).appendTo($line);
+
+                        if(seat == 1) {
+                            $output.addClass('enable').on('click', onClickSeat);
+                        }else if(seat == 2){
+                            $output.addClass('disable');
+                        }
+                    });
+
+                    $line.appendTo('body');
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+
+</body>
+<body>
+
+</body>
+</html>

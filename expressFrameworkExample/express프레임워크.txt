@@ -1,0 +1,18 @@
+express 프레임워크 : express 모듈로 만든 프레임워크. 프로젝트를 손쉽게 만들어주며
+ 기본 뷰 지원 등을 해줍니다.
+
+ npm install -g express-generator
+ express 프로젝트명
+ cd 프로젝트명 && npm install
+ SET DEBUG=프로젝트명:* & npm start
+ 
+ ejs 모듈을 사용하는 경우
+ express -e 프로젝트명
+
+ production 환경으로 시작하기
+ SET NODE_ENV=production
+ npm start
+ 
+ 코드에 설정하기
+ const app = express();
+ app.settings.env = 'production'
